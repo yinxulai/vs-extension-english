@@ -1,0 +1,25 @@
+{
+  "name": "vs-english",
+  "version": "1.0.0",
+  "description": "vscode 英语助手 互译工具 学习英语帮手",
+  "main": "index.js",
+  "scripts": {
+    "build":"tsc --project tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yinxulai/vs-english.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yinxulai/vs-english/issues"
+  },
+  "devDependencies": {
+    "vscode": "^1.1.6",
+    "typescript": "^2.6.1",
+    "@types/node": "^7.0.43"
+  },
+  "homepage": "https://github.com/yinxulai/vs-english#readme"
+}
