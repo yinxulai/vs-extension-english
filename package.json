@@ -4,8 +4,9 @@
   "description": "vscode 英语助手 互译工具 学习英语帮手",
   "main": "dist/index.js",
   "scripts": {
-    "vscode:prepublish": "yarn run build",
-    "build": "tsc --project tsconfig.json"
+    "dev": "tsc -w --project tsconfig.json",
+    "build": "tsc --project tsconfig.json",
+    "vscode:prepublish": "yarn run build"
   },
   "repository": {
     "type": "git",
@@ -16,10 +17,16 @@
   "bugs": {
     "url": "https://github.com/yinxulai/vs-english/issues"
   },
+  "engines": {
+    "vscode": "^1.8.0"
+  },
   "devDependencies": {
     "vscode": "^1.1.6",
     "typescript": "^2.6.1",
     "@types/node": "^7.0.43"
   },
+  "activationEvents": [
+    "*"
+  ],
   "homepage": "https://github.com/yinxulai/vs-english#readme"
 }

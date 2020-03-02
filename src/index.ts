@@ -13,7 +13,7 @@ exports.activate = function activate(context: vs.ExtensionContext) {
 
   log('activate: 创建状态栏控件')
   // 底部状态栏
-  const statusBar = vs.window.createStatusBarItem(vs.StatusBarAlignment.Right, 0)
+  const statusBar = vs.window.createStatusBarItem(vs.StatusBarAlignment.Right, 100)
 
   log('activate: 注册事件订阅')
   // 添加订阅
