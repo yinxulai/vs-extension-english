@@ -9,7 +9,7 @@ exports.activate = function activate(context: vs.ExtensionContext) {
   )
 
   // 底部状态栏
-  const statusBar = vs.window.createStatusBarItem(vs.StatusBarAlignment.Right, 100)
+  const statusBar = vs.window.createStatusBarItem(vs.StatusBarAlignment.Right, 0)
 
   // 添加订阅
   context.subscriptions.push(textDocumentProvider)

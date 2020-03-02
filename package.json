@@ -4,8 +4,8 @@
   "description": "vscode 英语助手 互译工具 学习英语帮手",
   "main": "dist/index.js",
   "scripts": {
-    "build":"tsc --project tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "vscode:prepublish": "yarn run build",
+    "build": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
