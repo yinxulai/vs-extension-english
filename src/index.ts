@@ -1,31 +1,24 @@
-import { log } from 'util'
 import * as vs from 'vscode'
-import { TextDocument } from './provider/textDocument'
+import { log } from './utils/log'
+import { Processor } from './processor'
+
+exports.deactivate = function deactivate() {
+  log('deactivate: 停用扩展')
+}
 
 exports.activate = function activate(context: vs.ExtensionContext) {
   log('activate: 扩展激活了')
 
-  log('activate: 注册 TextDocumentContentProvider')
-  // 注册 TextDocumentContentProvider
-  const textDocumentProvider = vs.Disposable.from(
-    vs.workspace.registerTextDocumentContentProvider(TextDocument.scheme, new TextDocument())
-  )
+  log('activate: 创建 Processor')
+  const processer = new Processor()
 
-  log('activate: 创建状态栏控件')
-  // 底部状态栏
-  const statusBar = vs.window.createStatusBarItem(vs.StatusBarAlignment.Right, 100)
-
-  log('activate: 注册事件订阅')
   // 添加订阅
-  context.subscriptions.push(textDocumentProvider)
-  context.subscriptions.push(vs.workspace.onDidOpenTextDocument(e => updateStatusBar(statusBar)))
-  context.subscriptions.push(vs.workspace.onDidCloseTextDocument(e => updateStatusBar(statusBar)))
-  context.subscriptions.push(vs.window.onDidChangeActiveTextEditor(e => updateStatusBar(statusBar)))
-  context.subscriptions.push(vs.window.onDidChangeTextEditorSelection(e => updateStatusBar(statusBar)))
-  context.subscriptions.push(vs.window.onDidChangeTextEditorViewColumn(e => updateStatusBar(statusBar)))
-
-  log('activate: 更新状态栏')
-  updateStatusBar(statusBar)
+  log('activate: 注册事件订阅')
+  context.subscriptions.push(vs.workspace.onDidOpenTextDocument(processer.handleOpenTextDocument))
+  context.subscriptions.push(vs.workspace.onDidCloseTextDocument(processer.handleCloseTextDocument))
+  context.subscriptions.push(vs.window.onDidChangeActiveTextEditor(processer.handleChangeActiveTextEditor))
+  context.subscriptions.push(vs.window.onDidChangeTextEditorSelection(processer.handleChangeTextEditorSelection))
+  context.subscriptions.push(vs.window.onDidChangeTextEditorViewColumn(processer.handleChangeTextEditorViewColumn))
 }
 
 function updateStatusBar(statusBar: vs.StatusBarItem) {
@@ -50,6 +43,3 @@ function selectText(): string | null {
   return document.getText(activeTextEditor.selection)
 }
 
-exports.deactivate = function deactivate() {
-  log('deactivate: 停用扩展')
-}

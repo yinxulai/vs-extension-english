@@ -1,0 +1,67 @@
+Arguments: 
+  /usr/local/Cellar/node/13.8.0/bin/node /usr/local/Cellar/yarn/1.22.0/libexec/bin/yarn.js add autobind-d
+
+PATH: 
+  /Users/yinxulai/.fastlane/bin:/Users/Global/Flutter/bin:/Users/Global/Go:/Users/Global/Go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/Users/yinxulai/.fastlane/bin:/Users/Global/Flutter/bin:/Users/Global/Go:/Users/Global/Go/bin
+
+Yarn version: 
+  1.22.0
+
+Node version: 
+  13.8.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/autobind-d: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:66975:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:140727:22)
+      at Request.emit (events.js:321:20)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:141699:10)
+      at Request.emit (events.js:321:20)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.0/libexec/lib/cli.js:141621:12)
+      at Object.onceWrapper (events.js:427:28)
+      at IncomingMessage.emit (events.js:333:22)
+      at endReadableNT (_stream_readable.js:1201:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+
+npm manifest: 
+  {
+    "name": "vs-english",
+    "version": "1.0.0",
+    "description": "vscode 英语助手 互译工具 学习英语帮手",
+    "main": "dist/index.js",
+    "scripts": {
+      "dev": "tsc -w --project tsconfig.json",
+      "build": "tsc --project tsconfig.json",
+      "vscode:prepublish": "yarn run build"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/yinxulai/vs-english.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/yinxulai/vs-english/issues"
+    },
+    "engines": {
+      "vscode": "^1.8.0"
+    },
+    "devDependencies": {
+      "vscode": "^1.1.6",
+      "typescript": "^2.6.1",
+      "@types/node": "^7.0.43"
+    },
+    "activationEvents": [
+      "*"
+    ],
+    "homepage": "https://github.com/yinxulai/vs-english#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
