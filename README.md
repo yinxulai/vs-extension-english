@@ -4,7 +4,7 @@ vscode 英语助手 互译工具 学习英语帮手
 
 # 词汇来源
 
-[ECDICT](git@github.com:skywind3000/ECDICT.git)
+[ECDICT](https://github.com/skywind3000/ECDICT)
 
 # TODO
 
