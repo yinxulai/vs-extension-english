@@ -2,17 +2,52 @@
 import * as vs from 'vscode'
 import { log } from '../utils/log'
 import { Display } from './display'
+import { getIndex } from '../config'
 import { Database } from '../database'
 import autobind from 'autobind-decorator'
 
+
 export class Processor {
+
   constructor(context: vs.ExtensionContext) {
-    this.display = new Display()
     this.db = new Database(context.globalStoragePath)
+    this.display = new Display()
+    this.context = context
+    this.init(context)
   }
 
   private db: Database
   private display: Display
+  private context: vs.ExtensionContext
+
+  // 初始化
+  @autobind
+  private async init(context: vs.ExtensionContext) {
+    const localBasicDictionaryVersion = context.globalState.get<number>('basicDictionaryVersion') || 0 // 本地基础字典版本
+
+    // 检查本地字典版本
+    if (!localBasicDictionaryVersion) {
+      log('init: 本地没有任何字典')
+      // TODO: 下载离线字典
+    }
+
+    // 获取线上字典配置
+    let index
+    try { index = await getIndex() }
+    catch (err) { log('init: 获取字典索引失败', err) }
+
+    if (!index) {
+      // TODO: 提示用户错误
+      log('init: 获取索引文件错误')
+      return
+    }
+
+    // 判断线上和本地版本的差距
+    if (index.dictionary.basic.version > localBasicDictionaryVersion) {
+      // TODO: 更新字典版本
+      log(`init: 本地基础字典版本有更新, 本地版本${localBasicDictionaryVersion}, 最新版本${index.dictionary.basic.version}`)
+    }
+  }
 
   // 翻译单词
   @autobind
