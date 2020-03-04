@@ -6,20 +6,38 @@ import { Database } from '../database'
 import autobind from 'autobind-decorator'
 
 export class Processor {
-  constructor(database: Database) {
-    this.db = database
+  constructor(context: vs.ExtensionContext) {
     this.display = new Display()
+    this.db = new Database(context.globalStoragePath)
   }
 
   private db: Database
   private display: Display
 
-
-  // 翻译
+  // 翻译单词
   @autobind
-  private translation(word: string) {
-   //TODO:  处理翻译
-   this.display.showStatusBarMessage(word)
+  private async translation(word: string) {
+    //TODO:  处理翻译
+    const paraphrase = await this.db.queryParaphrase(word)
+    this.display.showStatusBarMessage(paraphrase)
+  }
+
+  // 获取 text
+  @autobind
+  private getText(...selections: vs.Selection[]): string[] {
+    const { activeTextEditor } = vs.window
+
+    // 不存在活动窗口
+    if (activeTextEditor == null) {
+      return []
+    }
+
+    if (activeTextEditor.document == null) {
+      return []
+    }
+
+    // 获取用户选择的文本内容
+    return selections.map(selection => activeTextEditor.document.getText(selection))
   }
 
   // 打开文档
@@ -40,22 +58,10 @@ export class Processor {
   }
   // 编辑器选择内容变更了
   @autobind
-   handleChangeTextEditorSelection(e: vs.TextEditorSelectionChangeEvent) {
+  handleChangeTextEditorSelection(e: vs.TextEditorSelectionChangeEvent) {
     log('Process: handleChangeTextEditorSelection')
-    const { activeTextEditor } = vs.window
-
-    if (activeTextEditor == null) {
-      // 不存在活动窗口
-      return
-    }
-
-    // 取得用户主要选择对象
-    const primarySelection = e.selections[0]
-
-    // 获取用户选择的文本内容
-    const text = activeTextEditor.document.getText(primarySelection)
-
-    this.translation(text)
+    const text = this.getText(...e.selections)
+    this.translation(text[0])
   }
 
   @autobind
