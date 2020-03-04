@@ -37,6 +37,7 @@ export async function initDBFile(context: vs.ExtensionContext) {
   // 更新/下载
   
 
+
   // if (!context.globalState.get('basisStardictVersion')) {
   //   vs.window.withProgress({
   //     location: vs.ProgressLocation.Notification,
