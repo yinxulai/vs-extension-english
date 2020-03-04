@@ -23,6 +23,7 @@ export class Processor {
   // 初始化
   @autobind
   private async init(context: vs.ExtensionContext) {
+    // 初始化 数据库一类的
     const localBasicDictionaryVersion = context.globalState.get<number>('basicDictionaryVersion') || 0 // 本地基础字典版本
 
     // 检查本地字典版本
@@ -52,7 +53,8 @@ export class Processor {
   // 翻译单词
   @autobind
   private async translation(word: string) {
-    //TODO:  处理翻译
+    // 数据库查询翻译
+    // TODO: 支持词型变化
     const paraphrase = await this.db.queryParaphrase(word)
     this.display.showStatusBarMessage(paraphrase)
   }
